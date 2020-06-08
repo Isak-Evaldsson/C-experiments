@@ -8,7 +8,8 @@ typedef struct node_t{
 
 
 typedef struct LinkedList
-{
+{   
+    int size;
     node_t* first;
 } LinkedList;
 

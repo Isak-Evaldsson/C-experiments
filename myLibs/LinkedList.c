@@ -5,6 +5,7 @@
 
 LinkedList* emptyList() {
     LinkedList* p = (LinkedList*) malloc(sizeof(LinkedList));
+    p->size = 0;
     p->first = NULL;
     return p;
 }
@@ -38,6 +39,7 @@ void append(LinkedList* list, int val) {
 
         current->next = createNode(val);
     }
+    list->size++;
 }
 
 int popFirst(LinkedList* list) {
@@ -53,6 +55,7 @@ int popFirst(LinkedList* list) {
     val = fst->val;
     free(fst);
     list->first = snd;
+    list->size--;
 
     return val;
 }
