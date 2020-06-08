@@ -1,8 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "LinkedList.h"
+
+struct Man {
+    LinkedList prefQueue;
+} typedef Man;
+
+struct Woman {
+    int *prefList;
+} typedef Woman;
+
 
 void read() {
-    //Read header
     char str[10];
     long numberOfPairs;
     
@@ -22,6 +31,7 @@ void read() {
         for (int i = 0; i <= numberOfPairs; i++) {
             prefs[i] = strtol(line, &line, 10);
         };
+
     }
 }
 
