@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "LinkedList.h"
+#include "../myLibs/LinkedList.h"
+#include "../myLibs/ArrayList.h"
 
 struct Man {
-    LinkedList prefQueue;
+    LinkedList* prefQueue;
 } typedef Man;
 
 struct Woman {
-    int *prefList;
+    ArrayList *prefList;
 } typedef Woman;
 
 
@@ -17,7 +18,8 @@ void read() {
     
     fgets(str, sizeof(str), stdin);
     numberOfPairs = strtol(str, NULL, 10);
-
+    Man menList[numberOfPairs];
+    Woman womanList[numberOfPairs]; 
 
     for (int i = 0; i < 2*numberOfPairs; i++)
     {
