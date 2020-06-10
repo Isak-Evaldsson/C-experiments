@@ -37,7 +37,7 @@ int get(ArrayList* list, unsigned int index) {
     return list->array[index];
 }
 
-void append(ArrayList* list, int value){
+void appendArrayList(ArrayList* list, int value){
     if(list->size + 1 > list->capacity) {
         extend(list);
     }
