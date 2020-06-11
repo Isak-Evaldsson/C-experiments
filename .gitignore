@@ -1,2 +1,4 @@
 a.out
 myLibs/*.gch
+*.out
+*.verd
