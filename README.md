@@ -1,4 +1,4 @@
-# C-experiments
+# C-playground
 A little sandbox repository for me to play around with C. This code is for purely educational reasons. **Do not use this code for real projects**.
 
 ## Contents
