@@ -23,43 +23,6 @@ int* pairs;
 int numberOfPairs;
 
 // Functions
-void read() {
-    char str[10];
-    fgets(str, sizeof(str), stdin);
-    numberOfPairs = strtol(str, NULL, 10);
-    manList = (Man**) malloc(sizeof(Man*) * numberOfPairs);
-    womanList = (Woman**) malloc(sizeof(Woman*) * numberOfPairs);
-    
-    for (int i = 0; i < numberOfPairs; i++)
-        womanList[i] = NULL;
-
-    for (int i = 0; i < 2*numberOfPairs; i++)
-    {
-        char *line = (char*) malloc(6*numberOfPairs+2);
-        fgets(line, 6*numberOfPairs+2, stdin);
-        int id = strtol(line, &line, 10);
-        
-        if(womanList[id - 1] == NULL)  {
-            Woman* woman = (Woman*) malloc(sizeof(Woman));
-            woman->prefList = (int*) malloc(sizeof(int)*numberOfPairs);
-
-            for (int i = 0; i < numberOfPairs; i++)
-                woman->prefList[strtol(line, &line, 10) - 1] = i;
-
-            womanList[id - 1] = woman; 
-        } else {
-            Man* man = (Man*) malloc(sizeof(Man));
-            man->prefList = (int*) malloc(sizeof(int)*numberOfPairs);
-            man->lastWomman = 0;
-
-            for (int i = 0; i < numberOfPairs; i++)
-                man->prefList[i] = strtol(line, &line, 10);
-        
-            manList[id - 1] = man;
-        }
-    }
-}
-
 void gale_shapley() {
     pairs = (int*) malloc (sizeof(int) * numberOfPairs);
     LinkedList* queue = emptyList();
@@ -102,13 +65,56 @@ void printPairLists() {
     }
 }
 
+void read() {
+    scanf("%i", &numberOfPairs);
+    int amoutOfEntries = (numberOfPairs + 1)*2*numberOfPairs;
+    int* entryList = (int*) malloc(sizeof(int) * amoutOfEntries);
+    int i = 0;
+    int entry;
+    int result = scanf("%i", &entry);
+    while (result != EOF) {
+        entryList[i++] = entry;
+        result = scanf("%i", &entry);
+    }
+ 
+    manList = (Man**) malloc(sizeof(Man*) * numberOfPairs);
+    womanList = (Woman**) malloc(sizeof(Woman*) * numberOfPairs);
+
+    for (int i = 0; i < numberOfPairs; i++)
+        womanList[i] = NULL;
+
+    for (int start = 0; start < amoutOfEntries; start += numberOfPairs + 1) {
+        int id = entryList[start];
+
+        if(womanList[id - 1] == NULL)  {
+            Woman* woman = (Woman*) malloc(sizeof(Woman));
+            woman->prefList = (int*) malloc(sizeof(int)*numberOfPairs);
+
+            for (int i = 0; i < numberOfPairs; i++)
+                woman->prefList[entryList[start + i + 1] - 1] = i;
+
+            womanList[id - 1] = woman; 
+        } else {
+            Man* man = (Man*) malloc(sizeof(Man));
+            man->prefList = (int*) malloc(sizeof(int)*numberOfPairs);
+            man->lastWomman = 0;
+
+            for (int i = 0; i < numberOfPairs; i++) {
+                man->prefList[i] = entryList[start + 1 + i];
+            }
+            manList[id - 1] = man;
+        }
+    }
+    free(entryList);
+}
+
 int main() {
+    
     read();
     gale_shapley();
 
-    for (int i = 0; i < numberOfPairs; i++) {
+    for (int i = 0; i < numberOfPairs; i++)
         printf("%i\n", pairs[i]);
-    }
+
     return 0;
 }
-
