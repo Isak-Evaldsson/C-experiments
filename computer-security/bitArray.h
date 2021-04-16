@@ -7,7 +7,7 @@
 */
 struct BitArray
 {
-    char* array;
+    unsigned char* array;
     int length;
 } typedef BitArray;
 
